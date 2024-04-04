@@ -5,7 +5,7 @@ import kfDoc from '~/_assets/kfDoc.svg';
 
 export default function Header() {
 	return (
-		<nav className="border-b border-slate-800 px-8 py-3 font-mono mb-12">
+		<nav className="sticky top-0 border-b border-slate-800 px-8 py-3 font-mono mb-12 bg-white">
 			<a
 				className="absolute left-2 top-[10px] "
 				href="https://rd.knowledgefutures.org/ds/001"
