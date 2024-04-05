@@ -1,4 +1,5 @@
 import { atom } from 'nanostores';
+import article1 from '~/_assets/article1';
 
 type PubBase = {
 	id: string;
@@ -76,7 +77,7 @@ export const $userLibrary = atom<Library>([
 		generator: 'Travis Rich',
 		title: 'A first article here',
 		authors: 'Mark Ruffalo and Dash Wescott',
-		content: {},
+		content: article1,
 	},
 	{
 		id: '10.214/22399',
@@ -84,15 +85,7 @@ export const $userLibrary = atom<Library>([
 		generator: 'Travis Rich',
 		title: 'A second article here',
 		authors: 'Dana Newburg and Artermis Lifton',
-		content: {},
-	},
-	{
-		id: '10.222/1324',
-		pubType: 'concept',
-		generator: 'WikiImporter',
-		title: 'Physics',
-		authors: '',
-		definitionUrl: 'https://en.wikipedia.org/wiki/Physics',
+		content: article1,
 	},
 ]);
 export const $externalLibrary = atom<Library>([
@@ -102,9 +95,20 @@ export const $externalLibrary = atom<Library>([
 		generator: 'Travis Rich',
 		title: 'This is an external article',
 		authors: 'Didi Wisconsin',
-		content: {},
+		content: article1,
 	},
 ]);
+/* These are pubs created via annotations */
+export const $annotationLibrary = atom<Library>([
+	{
+		id: '10.222/1324',
+		pubType: 'concept',
+		generator: 'WikiImporter',
+		title: 'Physics',
+		authors: '',
+		definitionUrl: 'https://en.wikipedia.org/wiki/Physics',
+	},
+])
 
 export const $userAnnotations = atom<ConnectionSource>([
 	{ sourceId: '10.214/19341', destinationId: '10.222/1324' },

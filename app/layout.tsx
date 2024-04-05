@@ -13,7 +13,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 			<body>
 				<Header />
 				<div className="px-8 font-mono">
-					<div className="max-w-screen-lg m-auto">{children}</div>
+					<div className="max-w-screen-xl m-auto">{children}</div>
 				</div>
 			</body>
 		</html>

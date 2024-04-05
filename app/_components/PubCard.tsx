@@ -3,7 +3,7 @@ import type { Pub } from '~/_store/data';
 import { slugifyString } from '~/_utils/strings';
 
 export default function PubCard(props: Partial<Pub> & { connections: Array<any> }) {
-	const { id = "", title, authors, connections } = props;
+	const { id = '', title, authors, connections } = props;
 	return (
 		<div className="flex items-center border border-slate-600 rounded mt-4 mb-4 font-sans">
 			<a className="flex-auto no-underline group p-4 " href={`/p/${slugifyString(id)}`}>
