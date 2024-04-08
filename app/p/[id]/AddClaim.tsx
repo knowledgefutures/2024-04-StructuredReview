@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from '~/_components/Button';
 import Input from '~/_components/Input';
-import { $userAnnotations, $annotationLibrary, Concept, Connection } from '~/_store/data';
+import { $userAnnotations, $annotationLibrary, Claim, Connection } from '~/_store/data';
 import { applyHighlight } from './ranges';
 
 type Props = {
@@ -9,17 +9,18 @@ type Props = {
 	clearSelection: () => void;
 	serializedRange: string;
 };
-export default function AddConcept({ sourceId, clearSelection, serializedRange }: Props) {
-	const [name, setName] = useState('');
-	const [url, setUrl] = useState('');
+export default function AddClaim({ sourceId, clearSelection, serializedRange }: Props) {
+	const [description, setDescription] = useState('');
+	const [referenceId, setReferenceId] = useState('');
 	const handleAdd = () => {
-		const newAnnotationPub: Concept = {
+		const newAnnotationPub: Claim = {
 			id: '10.222/444',
 			pubType: 'concept',
 			generator: 'WikiImporter',
-			title: name,
+			title: '',
 			authors: '',
-			definitionUrl: url,
+			description,
+			referenceId,
 		};
 		const prevAnnotationLibrary = $annotationLibrary.get();
 		$annotationLibrary.set([...prevAnnotationLibrary, newAnnotationPub]);
@@ -33,8 +34,8 @@ export default function AddConcept({ sourceId, clearSelection, serializedRange }
 			},
 		};
 		$userAnnotations.set([...prevAnnotations, newAnnotationConnection]);
-		setName('');
-		setUrl('');
+		setDescription('');
+		setReferenceId('');
 		applyHighlight(serializedRange);
 		clearSelection();
 	};
@@ -42,20 +43,20 @@ export default function AddConcept({ sourceId, clearSelection, serializedRange }
 	return (
 		<form>
 			<Input
-				label={'Concept Name'}
-				value={name}
+				label={'Description'}
+				value={description}
 				onChange={(evt) => {
-					setName(evt.target.value);
+					setDescription(evt.target.value);
 				}}
-				placeholder="Particle physics"
+				placeholder="Alpha particles do not demonstrate rotational symmetry."
 			/>
 			<Input
-				label={'Definition URL'}
-				value={url}
+				label={'Reference ID'}
+				value={referenceId}
 				onChange={(evt) => {
-					setUrl(evt.target.value);
+					setReferenceId(evt.target.value);
 				}}
-				placeholder="https://en.wikipedia.org/..."
+				placeholder="doi: 10.213...."
 			/>
 			<div className="flex items-center space-x-4">
 				<Button text="Add Annotation" onClick={handleAdd} />

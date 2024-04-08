@@ -1,21 +1,28 @@
+import rangy from 'rangy';
+import 'rangy/lib/rangy-classapplier';
+import 'rangy/lib/rangy-serializer';
 import { MutableRefObject, useEffect, useState } from 'react';
+import { serializeSelection } from './ranges';
 
 export default (selectionRef: MutableRefObject<HTMLDivElement | null>, formActive: boolean) => {
 	const [selectionInnerH, setSelection] = useState<string>('');
-	// const [innerH, setInnerH] = useState();
+	const [serializedRange, setSerializedRange] = useState<string>('');
 	useEffect(() => {
 		document.onselectionchange = () => {
 			if (!!selectionRef.current) {
 				const selection = document.getSelection();
 				const anchorNode = selection?.anchorNode;
 				const focusNode = selection?.focusNode;
-				const anchorIsValid = anchorNode?.parentElement.closest('#article');
-				const focusIsValid = focusNode?.parentElement.closest('#article');
+				const anchorIsValid = anchorNode?.parentElement?.closest('#article');
+				const focusIsValid = focusNode?.parentElement?.closest('#article');
 				/* isValid checks that the selection is contained to the article */
 				const isValid = !!anchorIsValid && !!focusIsValid;
-				const contents = document.getSelection()?.getRangeAt(0).cloneContents();
+				const contents = isValid
+					? document.getSelection()?.getRangeAt(0).cloneContents()
+					: '';
 				const cloneWrapper = document.createElement('div');
 				if (isValid) {
+					// @ts-ignore
 					cloneWrapper.append(contents);
 				}
 
@@ -23,6 +30,8 @@ export default (selectionRef: MutableRefObject<HTMLDivElement | null>, formActiv
 					// If the form isnt' active yet, put whatever.
 					// If the form is active, only apply if there is new selection
 					selectionRef.current.innerHTML = cloneWrapper.innerHTML;
+					const ser = serializeSelection();
+					setSerializedRange(ser);
 				}
 
 				setTimeout(() => {
@@ -37,5 +46,5 @@ export default (selectionRef: MutableRefObject<HTMLDivElement | null>, formActiv
 			}
 		};
 	}, [formActive]);
-	return selectionInnerH;
+	return [selectionInnerH, serializedRange];
 };

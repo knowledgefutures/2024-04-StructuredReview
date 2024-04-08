@@ -13,7 +13,7 @@ export default function Home() {
 					<input
 						className="border border-slate-800 text-sm px-1 py-[2px] outline-none"
 						type="text"
-						placeholder="Add to Library by DOI"
+						placeholder="Add by DOI"
 					/>
 				</div>
 

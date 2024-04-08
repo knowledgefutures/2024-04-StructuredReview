@@ -1,25 +1,29 @@
 import { useState } from 'react';
 import Button from '~/_components/Button';
 import Input from '~/_components/Input';
-import { $userAnnotations, $annotationLibrary, Concept, Connection } from '~/_store/data';
+import { $userAnnotations, $annotationLibrary, Connection, Review } from '~/_store/data';
 import { applyHighlight } from './ranges';
+import Textarea from '~/_components/Textarea';
 
 type Props = {
 	sourceId: string;
 	clearSelection: () => void;
 	serializedRange: string;
 };
-export default function AddConcept({ sourceId, clearSelection, serializedRange }: Props) {
-	const [name, setName] = useState('');
-	const [url, setUrl] = useState('');
+export default function AddReview({ sourceId, clearSelection, serializedRange }: Props) {
+	const [rigor, setRigor] = useState(0);
+	const [relevance, setRelevance] = useState(0);
+	const [content, setContent] = useState('');
 	const handleAdd = () => {
-		const newAnnotationPub: Concept = {
+		const newAnnotationPub: Review = {
 			id: '10.222/444',
 			pubType: 'concept',
 			generator: 'WikiImporter',
-			title: name,
+			title: '',
 			authors: '',
-			definitionUrl: url,
+			rigor,
+			relevance,
+			content,
 		};
 		const prevAnnotationLibrary = $annotationLibrary.get();
 		$annotationLibrary.set([...prevAnnotationLibrary, newAnnotationPub]);
@@ -33,8 +37,9 @@ export default function AddConcept({ sourceId, clearSelection, serializedRange }
 			},
 		};
 		$userAnnotations.set([...prevAnnotations, newAnnotationConnection]);
-		setName('');
-		setUrl('');
+		setRigor(0);
+		setRelevance(0);
+		setContent('');
 		applyHighlight(serializedRange);
 		clearSelection();
 	};
@@ -42,20 +47,32 @@ export default function AddConcept({ sourceId, clearSelection, serializedRange }
 	return (
 		<form>
 			<Input
-				label={'Concept Name'}
-				value={name}
+				label={'Rigor'}
+				value={rigor}
 				onChange={(evt) => {
-					setName(evt.target.value);
+					setRigor(Math.min(10, Math.max(0, evt.target.value)));
 				}}
-				placeholder="Particle physics"
+				type="number"
+				min={0}
+				max={10}
 			/>
 			<Input
-				label={'Definition URL'}
-				value={url}
+				label={'Relevance'}
+				value={relevance}
 				onChange={(evt) => {
-					setUrl(evt.target.value);
+					setRigor(Math.min(10, Math.max(0, evt.target.value)));
 				}}
-				placeholder="https://en.wikipedia.org/..."
+				type="number"
+				min={0}
+				max={10}
+			/>
+			<Textarea
+				label="Review Notes"
+				value={content}
+				onChange={(evt) => {
+					setContent(evt.target.value);
+				}}
+				placeholder="Your review notes"
 			/>
 			<div className="flex items-center space-x-4">
 				<Button text="Add Annotation" onClick={handleAdd} />

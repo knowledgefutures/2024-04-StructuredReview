@@ -1,5 +1,9 @@
 import { atom } from 'nanostores';
 import article1 from '~/_assets/article1';
+import article2 from '~/_assets/article2';
+import article3 from '~/_assets/article3';
+import article4 from '~/_assets/article4';
+import article5 from '~/_assets/article5';
 
 type PubBase = {
 	id: string;
@@ -10,14 +14,10 @@ type PubBase = {
 };
 export type ArticleSelection = {
 	selectionType: string;
-	source: string;
-	start: string;
-	stop: string;
-	text: string;
+	serializedRange: string;
 };
 export type MovieSelection = {
 	selectionType: string;
-	source: string;
 	startSeconds: number;
 	stopSeconds: number;
 };
@@ -41,13 +41,17 @@ export type Video = PubBase & {
 export type Concept = PubBase & {
 	definitionUrl: string;
 };
+export type Claim = PubBase & {
+	description: string;
+	referenceId: string;
+};
 export type Reference = PubBase & {
-	referenceUrl: string;
+	referenceId: string;
 };
 export type Review = PubBase & {
 	rigor: number;
 	relevance: number;
-	content: Object;
+	content: string;
 };
 export type Replication = PubBase & {
 	validates: boolean;
@@ -74,18 +78,42 @@ export const $userLibrary = atom<Library>([
 	{
 		id: '10.214/19341',
 		pubType: 'article',
-		generator: 'Travis Rich',
-		title: 'A first article here',
-		authors: 'Mark Ruffalo and Dash Wescott',
+		generator: 'Article Importer Bot',
+		title: 'Effects of climate change on prey availability for whales',
+		authors: 'Ethel Black, Birgin Croll, and G.J. Bowen',
 		content: article1,
 	},
 	{
 		id: '10.214/22399',
 		pubType: 'article',
-		generator: 'Travis Rich',
-		title: 'A second article here',
-		authors: 'Dana Newburg and Artermis Lifton',
-		content: article1,
+		generator: 'Article Importer Bot',
+		title: 'Foraging behavior of toothed whales',
+		authors: 'Benny Jones and Alicia Xu',
+		content: article2,
+	},
+	{
+		id: '10.214/82731',
+		pubType: 'article',
+		generator: 'Article Importer Bot',
+		title: 'Electronic tagging and population structure of large oceanic predators',
+		authors: 'Yuto Takahashi, Sarah Jennings, Carlos Ramirez',
+		content: article3,
+	},
+	{
+		id: '10.214/123045',
+		pubType: 'article',
+		generator: 'Article Importer Bot',
+		title: 'Tracing marine mammal diets using stable isotopes: a review with case studies',
+		authors: 'Isabel Nguyen, Mohamed Al Farsi, Lucia Vasquez',
+		content: article4,
+	},
+	{
+		id: '10.214/77231',
+		pubType: 'article',
+		generator: 'Article Importer Bot',
+		title: ' Enhanced warming of the Northwest Atlantic Ocean under climate change',
+		authors: 'Hanna Schmidt, Liu Wen, Emily Carter',
+		content: article5,
 	},
 ]);
 export const $externalLibrary = atom<Library>([
@@ -108,7 +136,7 @@ export const $annotationLibrary = atom<Library>([
 		authors: '',
 		definitionUrl: 'https://en.wikipedia.org/wiki/Physics',
 	},
-])
+]);
 
 export const $userAnnotations = atom<ConnectionSource>([
 	{ sourceId: '10.214/19341', destinationId: '10.222/1324' },
@@ -122,3 +150,7 @@ export const $sourceList = atom<SourceList>([
 	{ label: "Arthur Wescott's Annotations", source: $arthurAnnotations.get(), active: false },
 	{ label: 'MITP Annotations', source: [], active: false },
 ]);
+
+export function isTypeArticle(data: any): data is Article {
+	return 'pubType' in data && data.pubType === 'article';
+}

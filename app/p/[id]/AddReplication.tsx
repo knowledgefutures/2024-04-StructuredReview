@@ -1,25 +1,36 @@
 import { useState } from 'react';
 import Button from '~/_components/Button';
 import Input from '~/_components/Input';
-import { $userAnnotations, $annotationLibrary, Concept, Connection } from '~/_store/data';
+import {
+	$userAnnotations,
+	$annotationLibrary,
+	Connection,
+	Review,
+	Replication,
+} from '~/_store/data';
 import { applyHighlight } from './ranges';
+import Textarea from '~/_components/Textarea';
 
 type Props = {
 	sourceId: string;
 	clearSelection: () => void;
 	serializedRange: string;
 };
-export default function AddConcept({ sourceId, clearSelection, serializedRange }: Props) {
-	const [name, setName] = useState('');
-	const [url, setUrl] = useState('');
+export default function AddReplication({ sourceId, clearSelection, serializedRange }: Props) {
+	const [validates, setValidates] = useState('');
+	console.log('validates',validates)
+	const [referenceId, setReferenceId] = useState('');
+	const [content, setContent] = useState('');
 	const handleAdd = () => {
-		const newAnnotationPub: Concept = {
+		const newAnnotationPub: Replication = {
 			id: '10.222/444',
 			pubType: 'concept',
 			generator: 'WikiImporter',
-			title: name,
+			title: '',
 			authors: '',
-			definitionUrl: url,
+			validates: validates === 'true',
+			referenceId,
+			content,
 		};
 		const prevAnnotationLibrary = $annotationLibrary.get();
 		$annotationLibrary.set([...prevAnnotationLibrary, newAnnotationPub]);
@@ -33,8 +44,10 @@ export default function AddConcept({ sourceId, clearSelection, serializedRange }
 			},
 		};
 		$userAnnotations.set([...prevAnnotations, newAnnotationConnection]);
-		setName('');
-		setUrl('');
+		setValidates('');
+		setReferenceId('');
+		setContent('');
+		setContent('');
 		applyHighlight(serializedRange);
 		clearSelection();
 	};
@@ -42,20 +55,28 @@ export default function AddConcept({ sourceId, clearSelection, serializedRange }
 	return (
 		<form>
 			<Input
-				label={'Concept Name'}
-				value={name}
-				onChange={(evt) => {
-					setName(evt.target.value);
+				label={'Validates'}
+				value={validates}
+				onChange={() => {
+					setValidates(validates ? '' : 'true');
 				}}
-				placeholder="Particle physics"
+				type="checkbox"
 			/>
 			<Input
-				label={'Definition URL'}
-				value={url}
+				label={'Reference ID'}
+				value={referenceId}
 				onChange={(evt) => {
-					setUrl(evt.target.value);
+					setReferenceId(evt.target.value);
 				}}
-				placeholder="https://en.wikipedia.org/..."
+				placeholder="doi: 10.213...."
+			/>
+			<Textarea
+				label="Notes"
+				value={content}
+				onChange={(evt) => {
+					setContent(evt.target.value);
+				}}
+				placeholder="Your replication notes"
 			/>
 			<div className="flex items-center space-x-4">
 				<Button text="Add Annotation" onClick={handleAdd} />

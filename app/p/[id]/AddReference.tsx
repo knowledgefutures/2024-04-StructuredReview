@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from '~/_components/Button';
 import Input from '~/_components/Input';
-import { $userAnnotations, $annotationLibrary, Concept, Connection } from '~/_store/data';
+import { $userAnnotations, $annotationLibrary, Concept, Connection, Reference } from '~/_store/data';
 import { applyHighlight } from './ranges';
 
 type Props = {
@@ -9,17 +9,16 @@ type Props = {
 	clearSelection: () => void;
 	serializedRange: string;
 };
-export default function AddConcept({ sourceId, clearSelection, serializedRange }: Props) {
-	const [name, setName] = useState('');
-	const [url, setUrl] = useState('');
+export default function AddReference({ sourceId, clearSelection, serializedRange }: Props) {
+	const [referenceId, setReferenceId] = useState('');
 	const handleAdd = () => {
-		const newAnnotationPub: Concept = {
+		const newAnnotationPub: Reference = {
 			id: '10.222/444',
 			pubType: 'concept',
 			generator: 'WikiImporter',
-			title: name,
+			title: '',
 			authors: '',
-			definitionUrl: url,
+			referenceId: referenceId,
 		};
 		const prevAnnotationLibrary = $annotationLibrary.get();
 		$annotationLibrary.set([...prevAnnotationLibrary, newAnnotationPub]);
@@ -33,8 +32,7 @@ export default function AddConcept({ sourceId, clearSelection, serializedRange }
 			},
 		};
 		$userAnnotations.set([...prevAnnotations, newAnnotationConnection]);
-		setName('');
-		setUrl('');
+		setReferenceId('');
 		applyHighlight(serializedRange);
 		clearSelection();
 	};
@@ -42,20 +40,12 @@ export default function AddConcept({ sourceId, clearSelection, serializedRange }
 	return (
 		<form>
 			<Input
-				label={'Concept Name'}
-				value={name}
+				label={'Reference ID'}
+				value={referenceId}
 				onChange={(evt) => {
-					setName(evt.target.value);
+					setReferenceId(evt.target.value);
 				}}
-				placeholder="Particle physics"
-			/>
-			<Input
-				label={'Definition URL'}
-				value={url}
-				onChange={(evt) => {
-					setUrl(evt.target.value);
-				}}
-				placeholder="https://en.wikipedia.org/..."
+				placeholder="doi: 10.213...."
 			/>
 			<div className="flex items-center space-x-4">
 				<Button text="Add Annotation" onClick={handleAdd} />
