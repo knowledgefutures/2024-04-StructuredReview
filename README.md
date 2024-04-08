@@ -8,8 +8,8 @@ In collaboration with Danny Hillis and SJ Klein.
 - [x] Create components. Start by defining props that will be sent in.
 
 - [ ] Populate some more realistic pub content and annotations.
-- [ ] Render HTML content
-- [ ] Make Selecting work
+- [x] Render HTML content
+- [x] Make Selecting work
 - [ ] Create annotation forms
 - [ ] Allow creation of new annotations
 - [ ] Populate Annotation List. Will need AnnotationCards
