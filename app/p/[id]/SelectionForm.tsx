@@ -34,7 +34,7 @@ export default function SelectionForm() {
 			<div className={showSelection ? 'block' : 'hidden'}>
 				<div
 					ref={selectionRef}
-					className="bg-white shadow-xl border border-slate-300 article p-2 font-serif text-base overflow-x-hidden w-[150%] scale-[.66] origin-top-left"
+					className="prose max-w-[150%] bg-white shadow-xl border border-slate-300 p-2 font-serif text-base overflow-x-hidden w-[150%] scale-[.66] origin-top-left"
 				/>
 			</div>
 			{showSelection && (
