@@ -7,11 +7,10 @@ import 'rangy/lib/rangy-serializer';
 
 const articleID = 'article';
 let applier;
-if (typeof window !== null) {
+if (typeof window !== 'undefined') {
 	rangy.init();
 	applier = rangy.createClassApplier('annotated');
 }
-
 export const applyHighlight = (serializedRange: string) => {
 	const articleElem = document.getElementById(articleID);
 	rangy.deserializeSelection(serializedRange, articleElem);
@@ -21,5 +20,11 @@ export const applyHighlight = (serializedRange: string) => {
 
 export const serializeSelection = () => {
 	const articleElem = document.getElementById(articleID);
-	return rangy.serializeSelection(undefined, undefined, articleElem);
-}
+	return rangy.serializeSelection(undefined, true, articleElem);
+};
+
+export const canDeserialize = (serializedRange: string) => {
+	const articleElem = document.getElementById(articleID);
+	console.log(serializedRange, rangy.canDeserializeSelection(serializedRange, articleElem));
+	return rangy.canDeserializeSelection(serializedRange, articleElem, window);
+};

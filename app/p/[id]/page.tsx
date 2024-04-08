@@ -2,15 +2,12 @@
 import { useParams } from 'next/navigation';
 import AnnotationList from './AnnotationList';
 import SelectionForm from './SelectionForm';
-import { $userLibrary, isTypeArticle } from '~/_store/data';
-import { slugifyString } from '~/_utils/strings';
+import { isTypeArticle } from '~/_store/data';
+import { getPubFromSlug } from '~/_utils/query';
 
 export default function Pub() {
 	const params = useParams<{ id: string }>();
-	const userLibrary = $userLibrary.get();
-	const activePub = userLibrary.find((pub) => {
-		return slugifyString(pub.id) === params.id;
-	});
+	const activePub = getPubFromSlug(params.id);
 	if (!activePub) {
 		return <div>'Article Not Found'</div>;
 	}
@@ -21,7 +18,7 @@ export default function Pub() {
 					<div id="article" className="prose p-6 font-serif text-base">
 						<h1>{activePub.title}</h1>
 						<div>
-							<i>By: {activePub.authors}</i>
+							<i>{activePub.authors}</i>
 						</div>
 						<div className="font-mono text-md opacity-60">{activePub.id}</div>
 						<div
@@ -44,7 +41,7 @@ export default function Pub() {
 							<button>Blocks</button> · <button>Data</button>
 						</div>
 					</div>
-					<AnnotationList mode="blocks" />
+					<AnnotationList pubId={activePub.id} mode="blocks" />
 				</div>
 			</div>
 		</div>

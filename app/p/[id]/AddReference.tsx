@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import Button from '~/_components/Button';
 import Input from '~/_components/Input';
-import { $userAnnotations, $annotationLibrary, Concept, Connection, Reference } from '~/_store/data';
+import { $userAnnotations, $annotationLibrary, Concept, Connection, /* Reference */ } from '~/_store/data';
 import { applyHighlight } from './ranges';
+import { genPubId } from '~/_utils/strings';
 
 type Props = {
 	sourceId: string;
@@ -12,20 +13,20 @@ type Props = {
 export default function AddReference({ sourceId, clearSelection, serializedRange }: Props) {
 	const [referenceId, setReferenceId] = useState('');
 	const handleAdd = () => {
-		const newAnnotationPub: Reference = {
-			id: '10.222/444',
-			pubType: 'concept',
-			generator: 'WikiImporter',
-			title: '',
-			authors: '',
-			referenceId: referenceId,
-		};
-		const prevAnnotationLibrary = $annotationLibrary.get();
-		$annotationLibrary.set([...prevAnnotationLibrary, newAnnotationPub]);
+		// const newAnnotationPub: Reference = {
+		// 	id: genPubId(),
+		// 	pubType: 'reference',
+		// 	generator: 'WikiImporter',
+		// 	title: '',
+		// 	authors: '',
+		// 	referenceId: referenceId,
+		// };
+		// const prevAnnotationLibrary = $annotationLibrary.get();
+		// $annotationLibrary.set([...prevAnnotationLibrary, newAnnotationPub]);
 		const prevAnnotations = $userAnnotations.get();
 		const newAnnotationConnection: Connection = {
 			sourceId: sourceId,
-			destinationId: 'def',
+			destinationId: referenceId,
 			selection: {
 				selectionType: 'article',
 				serializedRange: serializedRange,

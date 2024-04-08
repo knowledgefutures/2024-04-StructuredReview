@@ -1,15 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import useArticleSelection from './useArticleSelection';
 import AddConcept from './AddConcept';
-import { applyHighlight } from './ranges';
 import { useParams } from 'next/navigation';
 import AddReference from './AddReference';
 import AddClaim from './AddClaim';
 import AddReview from './AddReview';
 import AddReplication from './AddReplication';
+import { getPubFromSlug } from '~/_utils/query';
 
 export default function SelectionForm() {
 	const params = useParams<{ id: string }>();
+	const activePub = getPubFromSlug(params.id);
+	if (!activePub) {
+		return null;
+	}
 	const selectionRef = useRef<HTMLDivElement | null>(null);
 	const [formActive, setFormActive] = useState(false);
 	const [inputMode, setInputMode] = useState<string | undefined>(undefined);
@@ -21,9 +25,6 @@ export default function SelectionForm() {
 		setInputMode(undefined);
 	};
 	const showSelection = selectionInnerH || formActive;
-	const testRange = () => {
-		applyHighlight(serializedRange);
-	};
 	return (
 		<div className="mb-8">
 			<div className={showSelection ? 'hidden' : 'block'}>
@@ -57,35 +58,35 @@ export default function SelectionForm() {
 			)}
 			{inputMode === 'reference' && (
 				<AddReference
-					sourceId={params.id}
+					sourceId={activePub.id}
 					clearSelection={clearSelection}
 					serializedRange={serializedRange}
 				/>
 			)}
 			{inputMode === 'concept' && (
 				<AddConcept
-					sourceId={params.id}
+					sourceId={activePub.id}
 					clearSelection={clearSelection}
 					serializedRange={serializedRange}
 				/>
 			)}
 			{inputMode === 'claim' && (
 				<AddClaim
-					sourceId={params.id}
+					sourceId={activePub.id}
 					clearSelection={clearSelection}
 					serializedRange={serializedRange}
 				/>
 			)}
 			{inputMode === 'review' && (
 				<AddReview
-					sourceId={params.id}
+					sourceId={activePub.id}
 					clearSelection={clearSelection}
 					serializedRange={serializedRange}
 				/>
 			)}
 			{inputMode === 'replication' && (
 				<AddReplication
-					sourceId={params.id}
+					sourceId={activePub.id}
 					clearSelection={clearSelection}
 					serializedRange={serializedRange}
 				/>

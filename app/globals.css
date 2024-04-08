@@ -9,5 +9,6 @@
 	text-align: center;
 }
 .annotated {
-	color: red !important;
+	background: rgba(0, 0, 255, 0.2);
+	border-radius: 1px;
 }

@@ -4,6 +4,7 @@ import Input from '~/_components/Input';
 import { $userAnnotations, $annotationLibrary, Connection, Review } from '~/_store/data';
 import { applyHighlight } from './ranges';
 import Textarea from '~/_components/Textarea';
+import { genPubId } from '~/_utils/strings';
 
 type Props = {
 	sourceId: string;
@@ -16,8 +17,8 @@ export default function AddReview({ sourceId, clearSelection, serializedRange }:
 	const [content, setContent] = useState('');
 	const handleAdd = () => {
 		const newAnnotationPub: Review = {
-			id: '10.222/444',
-			pubType: 'concept',
+			id: genPubId(),
+			pubType: 'review',
 			generator: 'WikiImporter',
 			title: '',
 			authors: '',
@@ -30,7 +31,7 @@ export default function AddReview({ sourceId, clearSelection, serializedRange }:
 		const prevAnnotations = $userAnnotations.get();
 		const newAnnotationConnection: Connection = {
 			sourceId: sourceId,
-			destinationId: 'def',
+			destinationId: newAnnotationPub.id,
 			selection: {
 				selectionType: 'article',
 				serializedRange: serializedRange,
@@ -60,7 +61,7 @@ export default function AddReview({ sourceId, clearSelection, serializedRange }:
 				label={'Relevance'}
 				value={relevance}
 				onChange={(evt) => {
-					setRigor(Math.min(10, Math.max(0, evt.target.value)));
+					setRelevance(Math.min(10, Math.max(0, evt.target.value)));
 				}}
 				type="number"
 				min={0}

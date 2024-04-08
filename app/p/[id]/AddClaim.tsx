@@ -3,6 +3,7 @@ import Button from '~/_components/Button';
 import Input from '~/_components/Input';
 import { $userAnnotations, $annotationLibrary, Claim, Connection } from '~/_store/data';
 import { applyHighlight } from './ranges';
+import { genPubId } from '~/_utils/strings';
 
 type Props = {
 	sourceId: string;
@@ -14,8 +15,8 @@ export default function AddClaim({ sourceId, clearSelection, serializedRange }: 
 	const [referenceId, setReferenceId] = useState('');
 	const handleAdd = () => {
 		const newAnnotationPub: Claim = {
-			id: '10.222/444',
-			pubType: 'concept',
+			id: genPubId(),
+			pubType: 'claim',
 			generator: 'WikiImporter',
 			title: '',
 			authors: '',
@@ -25,15 +26,25 @@ export default function AddClaim({ sourceId, clearSelection, serializedRange }: 
 		const prevAnnotationLibrary = $annotationLibrary.get();
 		$annotationLibrary.set([...prevAnnotationLibrary, newAnnotationPub]);
 		const prevAnnotations = $userAnnotations.get();
+		/* Claims create a connection to the source pub, and also to a reference pub if there is one */
+		/* other than the source pub (i.e. blank referenceId or referenceId === sourceId) */
 		const newAnnotationConnection: Connection = {
 			sourceId: sourceId,
-			destinationId: 'def',
+			destinationId: newAnnotationPub.id,
 			selection: {
 				selectionType: 'article',
 				serializedRange: serializedRange,
 			},
 		};
-		$userAnnotations.set([...prevAnnotations, newAnnotationConnection]);
+		const newAnnotationReference: Connection = {
+			sourceId: newAnnotationPub.id,
+			destinationId: referenceId,
+		};
+		if (referenceId && referenceId !== sourceId) {
+			$userAnnotations.set([...prevAnnotations, newAnnotationConnection, newAnnotationReference]);
+		} else {
+			$userAnnotations.set([...prevAnnotations, newAnnotationConnection]);
+		}
 		setDescription('');
 		setReferenceId('');
 		applyHighlight(serializedRange);

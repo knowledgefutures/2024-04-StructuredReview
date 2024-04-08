@@ -10,6 +10,7 @@ import {
 } from '~/_store/data';
 import { applyHighlight } from './ranges';
 import Textarea from '~/_components/Textarea';
+import { genPubId } from '~/_utils/strings';
 
 type Props = {
 	sourceId: string;
@@ -18,13 +19,12 @@ type Props = {
 };
 export default function AddReplication({ sourceId, clearSelection, serializedRange }: Props) {
 	const [validates, setValidates] = useState('');
-	console.log('validates',validates)
 	const [referenceId, setReferenceId] = useState('');
 	const [content, setContent] = useState('');
 	const handleAdd = () => {
 		const newAnnotationPub: Replication = {
-			id: '10.222/444',
-			pubType: 'concept',
+			id: genPubId(),
+			pubType: 'replication',
 			generator: 'WikiImporter',
 			title: '',
 			authors: '',
@@ -37,7 +37,7 @@ export default function AddReplication({ sourceId, clearSelection, serializedRan
 		const prevAnnotations = $userAnnotations.get();
 		const newAnnotationConnection: Connection = {
 			sourceId: sourceId,
-			destinationId: 'def',
+			destinationId: newAnnotationPub.id,
 			selection: {
 				selectionType: 'article',
 				serializedRange: serializedRange,

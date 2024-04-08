@@ -3,6 +3,7 @@ import Button from '~/_components/Button';
 import Input from '~/_components/Input';
 import { $userAnnotations, $annotationLibrary, Concept, Connection } from '~/_store/data';
 import { applyHighlight } from './ranges';
+import { genPubId } from '~/_utils/strings';
 
 type Props = {
 	sourceId: string;
@@ -14,7 +15,7 @@ export default function AddConcept({ sourceId, clearSelection, serializedRange }
 	const [url, setUrl] = useState('');
 	const handleAdd = () => {
 		const newAnnotationPub: Concept = {
-			id: '10.222/444',
+			id: genPubId(),
 			pubType: 'concept',
 			generator: 'WikiImporter',
 			title: name,
@@ -26,7 +27,7 @@ export default function AddConcept({ sourceId, clearSelection, serializedRange }
 		const prevAnnotations = $userAnnotations.get();
 		const newAnnotationConnection: Connection = {
 			sourceId: sourceId,
-			destinationId: 'def',
+			destinationId: newAnnotationPub.id,
 			selection: {
 				selectionType: 'article',
 				serializedRange: serializedRange,

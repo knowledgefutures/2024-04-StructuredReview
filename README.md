@@ -10,8 +10,9 @@ In collaboration with Danny Hillis and SJ Klein.
 - [ ] Populate some more realistic pub content and annotations.
 - [x] Render HTML content
 - [x] Make Selecting work
-- [ ] Create annotation forms
-- [ ] Allow creation of new annotations
+- [x] Create annotation forms
+- [x] Make annotation pub IDs auto-generated on create (create function)
+- [x] Allow creation of new annotations
 - [ ] Populate Annotation List. Will need AnnotationCards
 - [ ] Make highlighting annotation work
 - [ ] Make data view work
