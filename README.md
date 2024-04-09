@@ -13,9 +13,12 @@ In collaboration with Danny Hillis and SJ Klein.
 - [x] Create annotation forms
 - [x] Make annotation pub IDs auto-generated on create (create function)
 - [x] Allow creation of new annotations
-- [ ] Populate Annotation List. Will need AnnotationCards
+- [x] Populate Annotation List. Will need AnnotationCards
 - [x] Make highlighting annotation work
 - [x] Make data view work
+- [x] Make sources dropdown work to add/remove sources
+- [-] Make highlights dissapear when source is removed
+- [ ] Populate other fake annotation lists
+- [ ] Color-code highlights?
 - [ ] Make graph button work on library
-- [ ] Make sources dropdown work to add/remove sources
 - [ ] Make force knowledge graph work. Especially showing multiple sources. That's a cool feature, color-coded nodes/connections, and when you toggle the sources, the knowledge graph gets larger and larger.

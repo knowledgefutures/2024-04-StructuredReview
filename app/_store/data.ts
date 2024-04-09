@@ -1,4 +1,4 @@
-import { atom } from 'nanostores';
+import { atom, type WritableAtom } from 'nanostores';
 import article1 from '~/_assets/article1';
 import article2 from '~/_assets/article2';
 import article3 from '~/_assets/article3';
@@ -62,7 +62,11 @@ export type Replication = PubBase & {
 export type Pub = Article | PDF | Video | Concept | Claim | /* Reference | */ Review | Replication;
 export type Library = Array<Pub>;
 export type ConnectionSource = Array<Connection>;
-export type SourceList = Array<{ label: string; source: ConnectionSource; active: boolean }>;
+export type SourceList = Array<{
+	label: string;
+	data: WritableAtom<ConnectionSource>;
+	active: boolean;
+}>;
 
 /* 
 We have the user's default Library. 
@@ -328,13 +332,25 @@ export const $userAnnotations = atom<ConnectionSource>([
 	},
 ]);
 export const $arthurAnnotations = atom<ConnectionSource>([
-	{ sourceId: '10.214/19341', destinationId: '10.222/1324' },
+	{
+		sourceId: '10.214/19341',
+		destinationId: '10.359/11828',
+		selection: { selectionType: 'article', serializedRange: '0/17/3:0,0/17/3:262' },
+	},
+	{
+		sourceId: '10.214/19341',
+		destinationId: '10.635/73552',
+		selection: { selectionType: 'article', serializedRange: '0/21/3:13,0/21/3:202' },
+	},
 ]);
+export const $professionalReviewAnotations = atom<ConnectionSource>([]);
+export const $trustedNetworkAnnotations = atom<ConnectionSource>([]);
 
 export const $sourceList = atom<SourceList>([
-	{ label: 'My Annotations', source: $userAnnotations.get(), active: true },
-	{ label: "Arthur Wescott's Annotations", source: $arthurAnnotations.get(), active: false },
-	{ label: 'MITP Annotations', source: [], active: false },
+	{ label: 'Your Annotations', data: $userAnnotations, active: true },
+	{ label: "Arthur's Annotations", data: $arthurAnnotations, active: false },
+	{ label: 'Professional Review Service', data: $professionalReviewAnotations, active: false },
+	{ label: 'Open Annotation Network', data: $trustedNetworkAnnotations, active: false },
 ]);
 
 export const $activeAnnotationsList = atom<ConnectionSource>([...$userAnnotations.get()]);

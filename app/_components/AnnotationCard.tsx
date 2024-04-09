@@ -1,4 +1,4 @@
-// @ts-nocheck
+// --@ts-nocheck
 
 import { useStore } from '@nanostores/react';
 import { $annotationLibrary, $userLibrary, Pub, type Connection } from '~/_store/data';

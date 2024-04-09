@@ -2,6 +2,8 @@
 
 import Image from 'next/image';
 import kfDoc from '~/_assets/kfDoc.svg';
+import { Popover, PopoverContent, PopoverTrigger } from '~/_components/Popover';
+import SourceList from './SourceList';
 
 export default function Header() {
 	return (
@@ -17,7 +19,13 @@ export default function Header() {
 					<a href="/">Structured Review Demo</a>
 				</h1>
 				<div className="flex">
-					<div>Sources</div>
+					<Popover>
+						<PopoverTrigger>Sources</PopoverTrigger>
+						<PopoverContent>
+							<SourceList />
+						</PopoverContent>
+					</Popover>
+
 					<div className="rounded-full bg-slate-300 ml-2 h-6 w-6" />
 				</div>
 			</div>
