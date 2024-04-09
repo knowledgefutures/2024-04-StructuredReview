@@ -8,7 +8,16 @@
 	display: block;
 	text-align: center;
 }
-.annotated {
+span[class^='annotated'] {
 	background: rgba(0, 0, 255, 0.2);
 	border-radius: 1px;
+	&.active {
+		animation: blinker 0.3s linear infinite;
+	}
+}
+
+@keyframes blinker {
+	50% {
+		background: rgba(0, 0, 255, 0);
+	}
 }

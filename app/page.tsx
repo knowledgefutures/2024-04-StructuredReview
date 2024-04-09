@@ -25,8 +25,11 @@ export default function Home() {
 							id={pub.id}
 							title={pub.title}
 							authors={pub.authors}
-							connections={userAnnotations.filter((annotation)=>{
-								return pub.id === annotation.sourceId || pub.id === annotation.destinationId
+							connections={userAnnotations.filter((annotation) => {
+								return (
+									pub.id === annotation.sourceId ||
+									pub.id === annotation.destinationId
+								);
 							})}
 						/>
 					);
