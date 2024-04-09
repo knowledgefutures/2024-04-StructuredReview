@@ -1,11 +1,12 @@
 'use client';
 import { useStore } from '@nanostores/react';
-import { $userLibrary, $userAnnotations } from '~/_store/data';
+import { $userLibrary, /* $userAnnotations, */ $activeAnnotationsList } from '~/_store/data';
 import PubCard from '~/_components/PubCard';
 
 export default function Home() {
 	const library = useStore($userLibrary);
-	const userAnnotations = useStore($userAnnotations);
+	// const userAnnotations = useStore($userAnnotations);
+	const activeAnnotations = useStore($activeAnnotationsList);
 	return (
 		<div>
 			<div className="max-w-xl">
@@ -25,7 +26,7 @@ export default function Home() {
 							id={pub.id}
 							title={pub.title}
 							authors={pub.authors}
-							connections={userAnnotations.filter((annotation) => {
+							connections={activeAnnotations.filter((annotation) => {
 								return (
 									pub.id === annotation.sourceId ||
 									pub.id === annotation.destinationId

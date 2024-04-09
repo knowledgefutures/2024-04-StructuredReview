@@ -337,6 +337,8 @@ export const $sourceList = atom<SourceList>([
 	{ label: 'MITP Annotations', source: [], active: false },
 ]);
 
+export const $activeAnnotationsList = atom<ConnectionSource>([...$userAnnotations.get()]);
+
 export function isTypeArticle(data: any): data is Article {
 	return 'pubType' in data && data.pubType === 'article';
 }

@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react';
-import { $userAnnotations, $annotationLibrary, isTypeArticleSelection } from '~/_store/data';
+import { $userAnnotations, $annotationLibrary, isTypeArticleSelection, $activeAnnotationsList } from '~/_store/data';
 import { applyHighlight } from './ranges';
 import { useEffect } from 'react';
 import { setTimeout } from 'timers';
@@ -7,14 +7,15 @@ import AnnotationCard from '~/_components/AnnotationCard';
 
 export default function AnnotationList(props: { pubId: string; mode: 'blocks' | 'data' }) {
 	const { pubId, mode } = props;
-	const userAnnotations = useStore($userAnnotations);
+	// const userAnnotations = useStore($userAnnotations);
+	const activeAnnotations = useStore($activeAnnotationsList);
 	const annotationLibrary = useStore($annotationLibrary);
-	console.log('==================');
-	console.log('AnnotaitonLibrary');
-	console.log(JSON.stringify(annotationLibrary));
-	console.log('userAnnotations');
-	console.log(JSON.stringify(userAnnotations));
-	const localAnnotations = userAnnotations.filter((annotation) => {
+	// console.log('==================');
+	// console.log('AnnotaitonLibrary');
+	// console.log(JSON.stringify(annotationLibrary));
+	// console.log('userAnnotations');
+	// console.log(JSON.stringify(userAnnotations));
+	const localAnnotations = activeAnnotations.filter((annotation) => {
 		// return pubId === annotation.sourceId || pubId === annotation.destinationId;
 		return pubId === annotation.sourceId;
 	});
@@ -25,7 +26,7 @@ export default function AnnotationList(props: { pubId: string; mode: 'blocks' | 
 				applyHighlight(annotation.selection.serializedRange);
 			}
 		});
-	}, 0);
+	}, 100);
 	// }, []);
 
 	return (
