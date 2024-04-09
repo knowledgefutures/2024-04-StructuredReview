@@ -7,7 +7,6 @@ import {
 } from '~/_store/data';
 import { applyHighlight } from './ranges';
 import { useEffect } from 'react';
-import { setTimeout } from 'timers';
 import AnnotationCard from '~/_components/AnnotationCard';
 
 export default function AnnotationList(props: { pubId: string; mode: 'blocks' | 'data' }) {
