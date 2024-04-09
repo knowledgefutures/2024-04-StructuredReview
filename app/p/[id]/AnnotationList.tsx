@@ -1,5 +1,10 @@
 import { useStore } from '@nanostores/react';
-import { $userAnnotations, $annotationLibrary, isTypeArticleSelection, $activeAnnotationsList } from '~/_store/data';
+import {
+	$userAnnotations,
+	$annotationLibrary,
+	isTypeArticleSelection,
+	$activeAnnotationsList,
+} from '~/_store/data';
 import { applyHighlight } from './ranges';
 import { useEffect } from 'react';
 import { setTimeout } from 'timers';
@@ -18,7 +23,6 @@ export default function AnnotationList(props: { pubId: string; mode: 'blocks' | 
 	const localAnnotations = activeAnnotations.filter((annotation) => {
 		// return pubId === annotation.sourceId || pubId === annotation.destinationId;
 		return pubId === annotation.sourceId;
-		
 	});
 	// useEffect(() => {
 	setTimeout(() => {

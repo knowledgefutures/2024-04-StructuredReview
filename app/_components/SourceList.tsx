@@ -1,6 +1,7 @@
 import { useStore } from '@nanostores/react';
 import { ChangeEvent } from 'react';
 import { $sourceList } from '~/_store/data';
+import { colors } from '~/_utils/colors';
 
 export default function SourceList() {
 	const options = useStore($sourceList);
@@ -9,12 +10,6 @@ export default function SourceList() {
 		nextOptions[index].active = evt.target.checked;
 		$sourceList.set(nextOptions);
 	};
-	const colors = [
-		'bg-[rgba(0,0,255,0.3)]',
-		'bg-[rgba(255,0,0,0.3)]',
-		'bg-[rgba(150,10,200,0.3)]',
-		'bg-[rgba(0,255,0,0.3)]',
-	];
 	return (
 		<div className="space-y-4">
 			{options.map((option, index) => {

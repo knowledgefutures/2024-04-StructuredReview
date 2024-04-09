@@ -20,5 +20,5 @@ In collaboration with Danny Hillis and SJ Klein.
 - [-] Make highlights dissapear when source is removed
 - [x] Populate other fake annotation lists
 - [x] Color-code highlights?
-- [ ] Make graph button work on library
-- [ ] Make force knowledge graph work. Especially showing multiple sources. That's a cool feature, color-coded nodes/connections, and when you toggle the sources, the knowledge graph gets larger and larger.
+- [x] Make graph button work on library
+- [x] Make force knowledge graph work. Especially showing multiple sources. That's a cool feature, color-coded nodes/connections, and when you toggle the sources, the knowledge graph gets larger and larger.

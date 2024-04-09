@@ -1,4 +1,5 @@
 'use client';
+import poison from '~/_assets/poison.png';
 import { useStore } from '@nanostores/react';
 import { useSearchParams } from 'next/navigation';
 import autoAnimate from '@formkit/auto-animate';
@@ -12,6 +13,7 @@ import {
 import PubCard from '~/_components/PubCard';
 import { Fragment, useEffect, useRef } from 'react';
 import { slugifyString } from './_utils/strings';
+import Image from 'next/image';
 
 export default function Home() {
 	const library = useStore($userLibrary);
@@ -134,6 +136,9 @@ export default function Home() {
 						})}
 				</div>
 			</div>
+			<a href="graph" className="fixed bottom-0 right-0 opacity-0 hover:opacity-100 transition-opacity">
+				<Image src={poison} alt="Link to graph view" />
+			</a>
 		</div>
 	);
 }
