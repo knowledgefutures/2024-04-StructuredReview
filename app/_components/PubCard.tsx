@@ -11,10 +11,10 @@ export default function PubCard(props: Partial<Pub> & { connections: Array<any> 
 				<h3 className="group-hover:underline font-bold">{title}</h3>
 				<div>{authors}</div>
 			</Link>
-			<a className="flex items-center p-4 hover:bg-slate-100" href={`/#${slugifyString(id)}`}>
+			<Link className="flex items-center p-4 hover:bg-slate-100" href={`/?focus=${slugifyString(id)}`}>
 				<img src={linkIcon.src} alt="Connections" loading="eager" />
 				{connections.length}
-			</a>
+			</Link>
 		</div>
 	);
 }

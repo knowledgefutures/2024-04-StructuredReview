@@ -2,12 +2,14 @@
 import { useParams } from 'next/navigation';
 import AnnotationList from './AnnotationList';
 import SelectionForm from './SelectionForm';
-import { isTypeArticle } from '~/_store/data';
+import { $activeAnnotationsList, isTypeArticle } from '~/_store/data';
 import { getPubFromSlug } from '~/_utils/query';
 import { useState } from 'react';
+import { useStore } from '@nanostores/react';
 
 export default function Pub() {
 	const [annotationMode, setAnnotationMode] = useState<'blocks' | 'data'>('blocks');
+	const activeAnnotationsList = useStore($activeAnnotationsList);
 	const params = useParams<{ id: string }>();
 	const activePub = getPubFromSlug(params.id);
 	if (!activePub) {
@@ -39,7 +41,7 @@ export default function Pub() {
 				</div>
 				<div>
 					<div className="flex justify-between items-center">
-						<h3 className="font-bold">Annotations</h3>
+						<h3 className="font-bold">Annotations <span className="opacity-50">({activeAnnotationsList.length})</span></h3>
 						<div className="text-sm flex space-x-4">
 							<button
 								className={annotationMode === 'blocks' ? modeButtonClasses : ''}

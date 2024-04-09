@@ -1,12 +1,14 @@
 'use client';
 import { useStore } from '@nanostores/react';
+import { useSearchParams } from 'next/navigation'
 import { $userLibrary, /* $userAnnotations, */ $activeAnnotationsList } from '~/_store/data';
 import PubCard from '~/_components/PubCard';
 
 export default function Home() {
 	const library = useStore($userLibrary);
-	// const userAnnotations = useStore($userAnnotations);
 	const activeAnnotations = useStore($activeAnnotationsList);
+	const searchParams = useSearchParams()
+	const focus = searchParams.get('focus')
 	return (
 		<div>
 			<div className="max-w-xl">

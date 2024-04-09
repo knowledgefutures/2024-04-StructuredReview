@@ -18,7 +18,7 @@ In collaboration with Danny Hillis and SJ Klein.
 - [x] Make data view work
 - [x] Make sources dropdown work to add/remove sources
 - [-] Make highlights dissapear when source is removed
-- [ ] Populate other fake annotation lists
-- [ ] Color-code highlights?
+- [x] Populate other fake annotation lists
+- [x] Color-code highlights?
 - [ ] Make graph button work on library
 - [ ] Make force knowledge graph work. Especially showing multiple sources. That's a cool feature, color-coded nodes/connections, and when you toggle the sources, the knowledge graph gets larger and larger.

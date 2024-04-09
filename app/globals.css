@@ -9,15 +9,26 @@
 	text-align: center;
 }
 span[class^='annotated'] {
-	background: rgba(0, 0, 255, 0.2);
 	border-radius: 1px;
 	&.active {
 		animation: blinker 0.3s linear infinite;
 	}
 }
+span[class^='annotated-0'] {
+	background: rgba(0, 0, 255, 0.2);
+}
+span[class^='annotated-1'] {
+	background: rgba(255, 0, 0, 0.2);
+}
+span[class^='annotated-2'] {
+	background: rgba(150, 10, 200, 0.2);
+}
+span[class^='annotated-3'] {
+	background: rgba(0, 255, 0, 0.2);
+}
 
 @keyframes blinker {
 	50% {
-		background: rgba(0, 0, 255, 0);
+		background: rgba(0, 0, 0, 0);
 	}
 }

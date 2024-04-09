@@ -11,10 +11,10 @@ let applier;
 if (typeof window !== 'undefined') {
 	rangy.init();
 }
-export const applyHighlight = (serializedRange: string) => {
+export const applyHighlight = (serializedRange: string, color?: number) => {
 	const articleElem = document.getElementById(articleID);
 	rangy.deserializeSelection(serializedRange, articleElem);
-	applier = rangy.createClassApplier(`annotated-${slugifyString(serializedRange)}`);
+	applier = rangy.createClassApplier(`annotated-${color}-${slugifyString(serializedRange)}`);
 	applier.applyToSelection();
 	window?.getSelection()?.removeAllRanges();
 };
@@ -32,9 +32,10 @@ export const canDeserialize = (serializedRange: string) => {
 
 export const scrollToAnnotation = (serializedRange: string) => {
 	const articleElem = document.getElementById(articleID);
-	const annotationSpan = document.getElementsByClassName(
-		`annotated-${slugifyString(serializedRange)}`
-	)[0];
+	const annotationSpan = document.querySelector(`[class*='${slugifyString(serializedRange)}']`)
+	// const annotationSpan = document.getElementsByClassName(
+	// 	`annotated-${slugifyString(serializedRange)}`
+	// )[0];
 	articleElem.parentNode.scroll(0, annotationSpan.offsetTop - 50);
 	const initClassName = annotationSpan.className;
 	annotationSpan.className = `${initClassName} active`;

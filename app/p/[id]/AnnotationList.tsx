@@ -7,28 +7,28 @@ import AnnotationCard from '~/_components/AnnotationCard';
 
 export default function AnnotationList(props: { pubId: string; mode: 'blocks' | 'data' }) {
 	const { pubId, mode } = props;
-	// const userAnnotations = useStore($userAnnotations);
+	const userAnnotations = useStore($userAnnotations);
 	const activeAnnotations = useStore($activeAnnotationsList);
 	const annotationLibrary = useStore($annotationLibrary);
 	// console.log('==================');
-	// console.log('AnnotaitonLibrary');
+	// console.log('AnnotationLibrary');
 	// console.log(JSON.stringify(annotationLibrary));
 	// console.log('userAnnotations');
 	// console.log(JSON.stringify(userAnnotations));
 	const localAnnotations = activeAnnotations.filter((annotation) => {
 		// return pubId === annotation.sourceId || pubId === annotation.destinationId;
 		return pubId === annotation.sourceId;
+		
 	});
 	// useEffect(() => {
 	setTimeout(() => {
 		localAnnotations.forEach((annotation) => {
 			if (isTypeArticleSelection(annotation.selection)) {
-				applyHighlight(annotation.selection.serializedRange);
+				applyHighlight(annotation.selection.serializedRange, annotation.color);
 			}
 		});
-	}, 100);
+	}, 0);
 	// }, []);
-
 	return (
 		<div>
 			{localAnnotations.map((annotation) => {

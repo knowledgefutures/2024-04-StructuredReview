@@ -1,4 +1,4 @@
-// --@ts-nocheck
+// @ts-nocheck
 
 import { useStore } from '@nanostores/react';
 import { $annotationLibrary, $userLibrary, Pub, type Connection } from '~/_store/data';
@@ -14,7 +14,6 @@ export default function AnnotationCard(props: { annotation: Connection; mode: 'b
 		}
 	);
 	if (!destinationPub) {
-		console.log('Cant find one!');
 		return null;
 	}
 	return (
