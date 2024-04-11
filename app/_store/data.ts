@@ -4,6 +4,7 @@ import article2 from '~/_assets/article2';
 import article3 from '~/_assets/article3';
 import article4 from '~/_assets/article4';
 import article5 from '~/_assets/article5';
+import article6 from '~/_assets/article6';
 
 type PubBase = {
 	id: string;
@@ -119,6 +120,14 @@ export const $userLibrary = atom<Library>([
 		title: 'Climate change impacts on marine mammal distributions and species interactions in the North Pacific Ocean',
 		authors: 'Hanna Schmidt, Liu Wen, Emily Carter',
 		content: article5,
+	},
+	{
+		id: '10.333/22871',
+		pubType: 'article',
+		generator: 'Article Importer Bot',
+		title: 'Cellular view of balleen digestive track',
+		authors: 'Hanna Schmidt, Liu Wen, Emily Carter',
+		content: article6,
 	},
 ]);
 export const $externalLibrary = atom<Library>([
