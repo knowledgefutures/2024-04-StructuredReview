@@ -16,7 +16,7 @@ export default function Header() {
 			</a>
 			<div className="max-w-screen-xl m-auto flex justify-between">
 				<h1>
-					<a href="/">Structured Review Demo</a>
+					<a href="/">Scholar Nexus Demo</a>
 				</h1>
 				<div className="flex">
 					<Popover>

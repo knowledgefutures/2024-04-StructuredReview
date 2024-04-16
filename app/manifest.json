@@ -1,0 +1,18 @@
+{
+	"short_name": "ScholarNexus Project",
+	"name": "scholarnexusProj",
+	"icons": [
+		{
+			"src": "/scholar.png",
+			"type": "image/svg+xml",
+			"sizes": "512x512"
+		}
+	],
+	"id": "pwa-v0.0.1",
+	"start_url": "/",
+	"background_color": "#242424",
+	"display": "fullscreen",
+	"scope": "/",
+	"theme_color": "#242424",
+	"description": "Scholar nexus temp app"
+}
