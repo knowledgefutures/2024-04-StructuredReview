@@ -1,12 +1,18 @@
-# ds001 - Structured Review Demo
-In collaboration with Danny Hillis and SJ Klein.
+# 2024-04 Structured Review Demo
 
-## Abstract
-Within the narrative content of every scientific publication is a richly connected structure of concepts, observations, and claims. Citations and references to related concepts, observations, and claims made by other publications extends these connections outward, making a rich graph that connects all the work in a field — and at the limit, all human knowledge.
+This is a demo site built by [Knowledge Futures](https://www.knowledgefutures.org).
+Content and names on this site may be fabricated for the sake of demonstration.
 
-Peer review traditionally provides a qualitative judgment of the narrative content by an expert who has their own mental model of this structured graph — the connections to contradicting claims, supporting claims, best practices, and ramifications. We consider an additional form of peer review, perhaps earlier in the process, that does not seek to pass qualitative judgment, but instead extracts this connected structure of concepts, observations, and claims into a publishable graph. The set of all the connected graphs across all the works in a field would create a knowledge graph capturing the detail, nuance, complexity and perhaps opportunity within a field. Such a graph could serve as the foundation for new types of applications, analyses, and discoveries.
+## 🧞 Commands
 
-Akin to a patent attorney pulling out and structuring the claims from the description of a new invention - we propose a form of review that pulls out and structures the claims and concepts in scientific publications, albeit in a more technical, data-focused, and interoperable manner than patent claims.
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at       |
+| `npm run build`           | Build your production         |
+| `npm run start`         | Preview your build locally, before deploying     |
 
 
 *All data in this demo has been bot-generated for demonstration purposes. The statements, author names, and titles are all fabricated algorithmically.*
