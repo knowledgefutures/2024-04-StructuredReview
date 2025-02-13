@@ -12,6 +12,7 @@
 		"pages:build": "npx @cloudflare/next-on-pages"
 	},
 	"dependencies": {
+		"@cloudflare/next-on-pages": "^1.13.7",
 		"@formkit/auto-animate": "^0.8.1",
 		"@nanostores/react": "^0.7.2",
 		"@radix-ui/react-popover": "^1.0.7",
