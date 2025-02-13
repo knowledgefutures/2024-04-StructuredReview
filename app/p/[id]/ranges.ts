@@ -12,6 +12,9 @@ if (typeof window !== 'undefined') {
 	rangy.init();
 }
 export const applyHighlight = (serializedRange: string, color?: number) => {
+	if (typeof document === 'undefined') {
+		return null;
+	}
 	const articleElem = document.getElementById(articleID);
 	rangy.deserializeSelection(serializedRange, articleElem);
 	applier = rangy.createClassApplier(`annotated-${color}-${slugifyString(serializedRange)}`);
@@ -20,17 +23,26 @@ export const applyHighlight = (serializedRange: string, color?: number) => {
 };
 
 export const serializeSelection = () => {
+	if (typeof document === 'undefined') {
+		return null;
+	}
 	const articleElem = document.getElementById(articleID);
 	return rangy.serializeSelection(undefined, true, articleElem);
 };
 
 export const canDeserialize = (serializedRange: string) => {
+	if (typeof document === 'undefined') {
+		return null;
+	}
 	const articleElem = document.getElementById(articleID);
 	console.log(serializedRange, rangy.canDeserializeSelection(serializedRange, articleElem));
 	return rangy.canDeserializeSelection(serializedRange, articleElem, window);
 };
 
 export const scrollToAnnotation = (serializedRange: string) => {
+	if (typeof document === 'undefined') {
+		return null;
+	}
 	const articleElem = document.getElementById(articleID);
 	const annotationSpan = document.querySelector(`[class*='${slugifyString(serializedRange)}']`)
 	// const annotationSpan = document.getElementsByClassName(
